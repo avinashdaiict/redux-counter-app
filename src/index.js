@@ -1,12 +1,20 @@
+/**
+ * Code Author : Avinash
+ * Date : 10/01/19
+ */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import { createStore, applyMiddleware } from "redux";
+import { Provider } from 'react-redux';
+import logger from 'redux-logger';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import reducer from "./reducers/counter";
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+import CounterApp from './containers/counterApp';
+
+const store = createStore(reducer, applyMiddleware(logger));
+
+ReactDOM.render(
+  (<Provider store={store}>
+    <CounterApp />
+  </Provider>), document.getElementById('root'));
